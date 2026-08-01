@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <base target="_top">
+    <meta charset="UTF-8">
+
+    <style>
+      :root {
+        --text: #202322;
+        --muted: #68706c;
+        --border: #dce2df;
+        --background: #ffffff;
+        --hover: #f7f9f8;
+        --accent: #58717c;
+        --accent-light: #edf2f3;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        background: transparent;
+      }
+
+      body {
+        color: var(--text);
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Helvetica Neue",
+          "Hiragino Kaku Gothic ProN",
+          "Hiragino Sans",
+          "Yu Gothic",
+          YuGothic,
+          Meiryo,
+          sans-serif;
+        line-height: 1.7;
+      }
+
+      .race-list-section {
+        width: 100%;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 4px 12px 24px;
+      }
+
+      .season-group + .season-group {
+        margin-top: 56px;
+      }
+
+      .season-title {
+        margin: 0 0 18px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid var(--accent);
+        color: var(--text);
+        font-size: 25px;
+        font-weight: 700;
+        line-height: 1.4;
+        letter-spacing: 0.03em;
+      }
+
+      .race-list {
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid var(--border);
+        list-style: none;
+      }
+
+      .race-item {
+        border-bottom: 1px solid var(--border);
+      }
+
+      .race-link,
+      .race-content {
+        display: grid;
+        grid-template-columns:
+          125px
+          160px
+          minmax(0, 1fr)
+          auto;
+        gap: 18px;
+        align-items: center;
+        width: 100%;
+        padding: 23px 10px;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .race-link {
+        transition:
+          background-color 0.2s ease;
+      }
+
+      .race-link:hover,
+      .race-link:focus-visible {
+        background: var(--hover);
+      }
+
+      .race-date {
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+      }
+
+      .race-round {
+        color: var(--accent);
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .race-main {
+        min-width: 0;
+      }
+
+      .race-name {
+        margin: 0;
+        font-size: 19px;
+        font-weight: 700;
+        line-height: 1.5;
+      }
+
+      .race-venue {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .race-side {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .race-status {
+        display: inline-flex;
+        min-width: 92px;
+        min-height: 29px;
+        align-items: center;
+        justify-content: center;
+        padding: 3px 12px;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.4;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .race-arrow {
+        color: var(--accent);
+        font-size: 20px;
+        line-height: 1;
+      }
+
+      .race-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .race-button {
+        display: inline-flex;
+        min-height: 34px;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 13px;
+        border: 1px solid var(--accent);
+        background: var(--accent);
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.4;
+        text-decoration: none;
+      }
+
+      .race-button--secondary {
+        background: #ffffff;
+        color: var(--accent);
+      }
+
+      .message {
+        padding: 36px 20px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .message--error {
+        color: #9a3028;
+      }
+
+      @media (max-width: 760px) {
+        .race-list-section {
+          padding: 2px 8px 20px;
+        }
+
+        .season-group + .season-group {
+          margin-top: 42px;
+        }
+
+        .season-title {
+          margin-bottom: 10px;
+          font-size: 21px;
+        }
+
+        .race-link,
+        .race-content {
+          grid-template-columns:
+            86px
+            minmax(0, 1fr);
+          gap: 5px 14px;
+          align-items: start;
+          padding: 18px 5px;
+        }
+
+        .race-date {
+          grid-column: 1;
+          grid-row: 1;
+          font-size: 12px;
+        }
+
+        .race-round {
+          grid-column: 1;
+          grid-row: 2;
+          font-size: 13px;
+        }
+
+        .race-main {
+          grid-column: 2;
+          grid-row: 1 / span 2;
+        }
+
+        .race-name {
+          font-size: 16px;
+        }
+
+        .race-venue {
+          margin-top: 3px;
+          font-size: 12px;
+        }
+
+        .race-side {
+          grid-column: 2;
+          grid-row: 3;
+          justify-content: flex-start;
+          margin-top: 8px;
+        }
+
+        .race-status {
+          min-width: 82px;
+          min-height: 26px;
+          padding: 2px 8px;
+          font-size: 10px;
+        }
+
+        .race-arrow {
+          font-size: 17px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .race-link,
+        .race-content {
+          grid-template-columns:
+            75px
+            minmax(0, 1fr);
+          gap-right: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="race-list-section">
+
+      
+        
+          <section class="season-group">
+
+            <h2 class="season-title">
+              2026-2027シーズン            </h2>
+
+            <ul class="race-list">
+
+              
+                <li class="race-item">
+
+                  
+                    <a
+                      class="race-link"
+                      href="https://sites.google.com/kyushucross.com/kyushucross/%E3%83%AC%E3%83%BC%E3%82%B9%E6%83%85%E5%A0%B1/%E7%AC%AC1%E6%88%A6%E8%8A%A6%E5%B1%8B"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+
+                  
+                    <time class="race-date">
+                      2026.11.29
+                                              （日）
+                                          </time>
+
+                    <span class="race-round">
+                      第1戦                    </span>
+
+                    <div class="race-main">
+
+                      <p class="race-name">
+                        芦屋海浜公園                      </p>
+
+                      
+                        <p class="race-venue">
+                          福岡県遠賀郡芦屋町                        </p>
+
+                      
+                      
+                    </div>
+
+                    <div class="race-side">
+
+                      
+                        <span class="race-status">
+                          開催予定                        </span>
+
+                      
+                      
+                        <span
+                          class="race-arrow"
+                          aria-hidden="true"
+                        >
+                          →
+                        </span>
+
+                      
+                    </div>
+
+                  
+                    </a>
+
+                  
+                </li>
+
+              
+                <li class="race-item">
+
+                  
+                    <a
+                      class="race-link"
+                      href="https://sites.google.com/kyushucross.com/kyushucross/%E3%83%AC%E3%83%BC%E3%82%B9%E6%83%85%E5%A0%B1/%E7%AC%AC2%E6%88%A6%E5%94%90%E6%B4%A5"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+
+                  
+                    <time class="race-date">
+                      2027.01.10
+                                              （日）
+                                          </time>
+
+                    <span class="race-round">
+                      第2戦                    </span>
+
+                    <div class="race-main">
+
+                      <p class="race-name">
+                        唐津 西の浜                      </p>
+
+                      
+                        <p class="race-venue">
+                          佐賀県唐津市                        </p>
+
+                      
+                      
+                    </div>
+
+                    <div class="race-side">
+
+                      
+                        <span class="race-status">
+                          開催予定                        </span>
+
+                      
+                      
+                        <span
+                          class="race-arrow"
+                          aria-hidden="true"
+                        >
+                          →
+                        </span>
+
+                      
+                    </div>
+
+                  
+                    </a>
+
+                  
+                </li>
+
+              
+            </ul>
+
+          </section>
+
+        
+      
+    </main>
+  </body>
+</html>
