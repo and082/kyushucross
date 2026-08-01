@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <base target="_top">
+    <meta charset="UTF-8">
+
+    <style>
+      :root {
+        --text: #202322;
+        --muted: #6b716e;
+        --border: #dce2df;
+        --background: #ffffff;
+        --accent: #58717c;
+        --accent-light: #edf2f3;
+        --important: #a33b32;
+        --important-light: #fff1ef;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        background: transparent;
+      }
+
+      body {
+        color: var(--text);
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Helvetica Neue",
+          "Hiragino Kaku Gothic ProN",
+          "Hiragino Sans",
+          "Yu Gothic",
+          YuGothic,
+          Meiryo,
+          sans-serif;
+        line-height: 1.7;
+      }
+
+      .news-section {
+        width: 100%;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 4px 12px;
+      }
+
+      .news-list {
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid var(--border);
+        list-style: none;
+      }
+
+      .news-item {
+        border-bottom: 1px solid var(--border);
+      }
+
+      .news-link,
+      .news-content {
+        display: grid;
+        grid-template-columns: 115px 120px minmax(0, 1fr);
+        gap: 20px;
+        align-items: start;
+        width: 100%;
+        padding: 22px 8px;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .news-link {
+        transition:
+          background-color 0.2s ease;
+      }
+
+      .news-link:hover,
+      .news-link:focus-visible {
+        background: #f7f9f8;
+      }
+
+      .news-date {
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+      }
+
+      .news-category {
+        display: inline-flex;
+        width: 100%;
+        min-height: 28px;
+        align-items: center;
+        justify-content: center;
+        padding: 3px 10px;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.4;
+        text-align: center;
+      }
+
+      .news-item--important
+        .news-category {
+        border-color: var(--important);
+        background: var(--important-light);
+        color: var(--important);
+      }
+
+      .news-main {
+        min-width: 0;
+      }
+
+      .news-title-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .news-title {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.6;
+      }
+
+      .news-new {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        padding: 1px 7px;
+        background: var(--important);
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1.6;
+        letter-spacing: 0.05em;
+      }
+
+      .news-body {
+        margin: 7px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        white-space: pre-line;
+      }
+
+      .news-arrow {
+        display: inline-block;
+        margin-left: 7px;
+        color: var(--accent);
+        font-size: 15px;
+      }
+
+      .message {
+        padding: 36px 20px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .message--error {
+        color: var(--important);
+      }
+
+       
+      .news-section--home .news-body {
+        display: none;
+      }
+
+      .news-section--home
+        .news-link,
+      .news-section--home
+        .news-content {
+        padding-top: 18px;
+        padding-bottom: 18px;
+      }
+
+      @media (max-width: 700px) {
+        .news-section {
+          padding: 2px 8px;
+        }
+
+        .news-link,
+        .news-content {
+          grid-template-columns: 90px minmax(0, 1fr);
+          gap: 8px 14px;
+          padding: 18px 4px;
+        }
+
+        .news-date {
+          grid-column: 1;
+          grid-row: 1;
+          font-size: 12px;
+        }
+
+        .news-category {
+          grid-column: 1;
+          grid-row: 2;
+          width: auto;
+          min-width: 76px;
+          min-height: 25px;
+          font-size: 10px;
+        }
+
+        .news-main {
+          grid-column: 2;
+          grid-row: 1 / span 2;
+        }
+
+        .news-title-row {
+          align-items: flex-start;
+        }
+
+        .news-title {
+          font-size: 15px;
+          line-height: 1.6;
+        }
+
+        .news-body {
+          margin-top: 5px;
+          font-size: 13px;
+          line-height: 1.7;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .news-link,
+        .news-content {
+          grid-template-columns: 76px minmax(0, 1fr);
+          gap: 7px 10px;
+        }
+
+        .news-category {
+          min-width: 68px;
+          padding-right: 4px;
+          padding-left: 4px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main
+      class="news-section news-section--home"
+    >
+
+      
+        <ul class="news-list">
+
+          
+            <li
+              class="news-item "
+            >
+
+              
+                <div class="news-content">
+
+              
+                <time class="news-date">
+                  2026.08.01                </time>
+
+                <span class="news-category">
+                  お知らせ                </span>
+
+                <div class="news-main">
+
+                  <div class="news-title-row">
+
+                    <p class="news-title">
+                      九州クロス公式サイトを公開しました
+                                          </p>
+
+                    
+                      <span class="news-new">
+                        NEW
+                      </span>
+
+                    
+                  </div>
+
+                  
+                </div>
+
+              
+                </div>
+
+              
+            </li>
+
+          
+            <li
+              class="news-item "
+            >
+
+              
+                <a
+                  class="news-link"
+                  href="https://google.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+
+              
+                <time class="news-date">
+                  2026.08.01                </time>
+
+                <span class="news-category">
+                  エントリー                </span>
+
+                <div class="news-main">
+
+                  <div class="news-title-row">
+
+                    <p class="news-title">
+                      第1戦のエントリーを開始しました
+                                              <span class="news-arrow">
+                          →
+                        </span>
+                                          </p>
+
+                    
+                      <span class="news-new">
+                        NEW
+                      </span>
+
+                    
+                  </div>
+
+                  
+                </div>
+
+              
+                </a>
+
+              
+            </li>
+
+          
+            <li
+              class="news-item "
+            >
+
+              
+                <a
+                  class="news-link"
+                  href="https://sites.google.com/kyushucross.com/kyushucross/%E5%85%AC%E5%BC%8F%E7%B7%B4%E7%BF%92%E4%BC%9A/%E9%96%8B%E5%B9%95%E5%89%8D%E7%B7%B4%E7%BF%92%E4%BC%9A%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+
+              
+                <time class="news-date">
+                  2026.08.01                </time>
+
+                <span class="news-category">
+                  練習会                </span>
+
+                <div class="news-main">
+
+                  <div class="news-title-row">
+
+                    <p class="news-title">
+                      開幕前公式練習会のお知らせ
+                                              <span class="news-arrow">
+                          →
+                        </span>
+                                          </p>
+
+                    
+                      <span class="news-new">
+                        NEW
+                      </span>
+
+                    
+                  </div>
+
+                  
+                </div>
+
+              
+                </a>
+
+              
+            </li>
+
+          
+        </ul>
+
+      
+    </main>
+  </body>
+</html>
